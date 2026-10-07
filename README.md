@@ -185,11 +185,8 @@ Docker Desktop should have **WSL2 integration** enabled for the Ubuntu distribut
 Clone the repository and enter the project directory:
 
 
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/AswaniVijoy/KBA-Automobile-Hyperledger-Fabric.git
 cd KBA-CHF
-
-
-> Replace `<YOUR-GITHUB-REPOSITORY-URL>` with the URL of this repository.
 
 ---
 
