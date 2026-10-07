@@ -106,47 +106,60 @@ The chaincode contains two smart contracts:
 * `OrderContract`
 
 ---
-
 ## 📂 Project Structure
 
-
-KBA-CHF/
+```text
+KBA-Automobile/
 │
-├── KBA-Automobile/
-│   │
-│   ├── Chaincode/
-│   │   ├── car-contract.go
-│   │   ├── order-contract.go
-│   │   ├── main.go
-│   │   ├── collections.json
-│   │   └── META-INF/
-│   │
-│   ├── Client/
-│   │   ├── client.go
-│   │   ├── connect.go
-│   │   ├── profile.go
-│   │   ├── event.go
-│   │   └── main.go
-│   │
-│   ├── public/
-│   │   ├── styles/
-│   │   └── scripts/
-│   │
-│   ├── templates/
-│   │   └── index.html
-│   │
+├── Chaincode/
+│   ├── car-contract.go
+│   ├── order-contract.go
+│   ├── main.go
+│   ├── collections.json
+│   └── META-INF/
+│       └── statedb/
+│           └── couchdb/
+│               └── indexes/
+│                   └── indexCarId.json
+│
+├── Client/
 │   ├── client.go
 │   ├── connect.go
 │   ├── profile.go
+│   ├── event.go
 │   ├── main.go
 │   ├── go.mod
 │   └── go.sum
 │
-└── fabric-samples/
-    └── test-network/
+├── public/
+│   ├── scripts/
+│   │   └── index.js
+│   └── styles/
+│       └── style.css
+│
+├── templates/
+│   └── index.html
+│
+├── client.go
+├── connect.go
+├── profile.go
+├── main.go
+├── go.mod
+└── go.sum
+```
 
+### Main Components
 
----
+| Component    | Purpose                                                    |
+| ------------ | ---------------------------------------------------------- |
+| `Chaincode/` | Contains the smart contracts and blockchain business logic |
+| `Client/`    | Contains the Fabric Gateway client and event listener code |
+| `public/`    | Contains frontend JavaScript and CSS                       |
+| `templates/` | Contains the HTML interface                                |
+| `main.go`    | Starts the Gin web application                             |
+| `client.go`  | Handles Fabric transaction submission and queries          |
+| `connect.go` | Handles Fabric Gateway connection, identity, and signing   |
+| `profile.go` | Contains organization and network configuration            |
 
 ## ⚙️ Prerequisites
 
