@@ -286,49 +286,91 @@ A user can enter a Car ID to retrieve the corresponding vehicle information from
 
 # 🔄 Transaction Flow
 
-A transaction submitted through the application follows the Fabric transaction flow:
+When a user creates or queries a car, the request moves through the application and Hyperledger Fabric network.
 
+### Create Car Transaction
 
+```text
 User
- │
- ▼
-Web Application
- │
- ▼
-Go / Gin Backend
- │
- ▼
+  │
+  ▼
+Web Browser
+  │
+  ▼
+HTML / JavaScript
+  │
+  ▼
+Gin Web Server
+  │
+  ▼
 Fabric Gateway
- │
- ▼
-Peer
- │
- ▼
-Chaincode
- │
- ▼
+  │
+  ▼
+Fabric Peer
+  │
+  ▼
+CarContract
+  │
+  ▼
 Endorsement
- │
- ▼
+  │
+  ▼
 Orderer
- │
- ▼
+  │
+  ▼
 Block
- │
- ▼
-Transaction Validation
- │
- ▼
+  │
+  ▼
+Validation & Commit
+  │
+  ▼
 Ledger
- │
- ├── Blockchain
- │      └── Transaction History
- │
- └── World State
-        └── Current Data
+```
 
+### Query Car
 
----
+Queries follow a shorter path because they do not create a new transaction or block.
+
+```text
+User
+  │
+  ▼
+Web Browser
+  │
+  ▼
+HTML / JavaScript
+  │
+  ▼
+Gin Web Server
+  │
+  ▼
+Fabric Gateway
+  │
+  ▼
+Fabric Peer
+  │
+  ▼
+CarContract
+  │
+  ▼
+World State
+  │
+  ▼
+Car Data
+  │
+  ▼
+Web Browser
+```
+
+### In This Project
+
+* **Create Car** uses `SubmitTransaction()` to submit a transaction to the Fabric network.
+* **Query Car** uses `EvaluateTransaction()` to read the current state.
+* The **Fabric Gateway** connects the Go application to the Fabric network.
+* The **Chaincode** contains the business logic.
+* The **Orderer** orders endorsed transactions into blocks.
+* Peers **validate and commit** valid transactions to the ledger.
+* The **World State** contains the latest state of the automobile data.
 
 # 🔐 Privacy and Access Control
 
