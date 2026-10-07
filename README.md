@@ -24,35 +24,66 @@ The application uses smart contracts to control how vehicle and order data is cr
 
 ## 🏗️ Architecture
 
-The application follows this basic flow:
+The KBA Automobile application follows a layered architecture connecting the web interface with the Hyperledger Fabric network.
 
+```text
+┌──────────────────────────────┐
+│         Web Browser          │
+│       HTML / CSS / JS        │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│       Go + Gin Server        │
+│          REST API            │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│       Fabric Gateway         │
+│  Identity + Transaction API  │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│     Hyperledger Fabric       │
+│                              │
+│  ┌────────┐  ┌────────┐      │
+│  │  Org1  │  │  Org2  │      │
+│  │  Maker │  │ Dealer │      │
+│  └────────┘  └────────┘      │
+│                              │
+│       ┌──────────────┐       │
+│       │     Org3     │       │
+│       │     MVD      │       │
+│       └──────────────┘       │
+│                              │
+│       Chaincode              │
+│       ├── CarContract        │
+│       └── OrderContract      │
+│                              │
+│       CouchDB / Ledger       │
+└──────────────────────────────┘
+```
 
-Web Browser
-     │
-     ▼
-HTML / CSS / JavaScript
-     │
-     ▼
-Go + Gin Web Application
-     │
-     ▼
-Fabric Gateway
-     │
-     ▼
-Hyperledger Fabric Network
-     │
-     ├── Org1 - Manufacturer
-     ├── Org2 - Dealer
-     └── Org3 - MVD
-             │
-             ▼
-        Chaincode
-             │
-             ▼
-           Ledger
+### Application Layers
 
+| Layer          | Components                    | Responsibility                                 |
+| -------------- | ----------------------------- | ---------------------------------------------- |
+| **Frontend**   | HTML, CSS, JavaScript         | User interface and API requests                |
+| **Backend**    | Go, Gin                       | REST API and application logic                 |
+| **Gateway**    | Fabric Gateway SDK            | Connects the application to Fabric             |
+| **Blockchain** | Peers, Orderer, Organizations | Transaction processing and validation          |
+| **Chaincode**  | CarContract, OrderContract    | Automobile and dealer-order business logic     |
+| **Database**   | CouchDB                       | Stores the Fabric world state                  |
+| **Ledger**     | Blockchain + World State      | Maintains transaction history and current data |
 
----
+### Organizations
+
+* **Org1 — Manufacturer:** Creates and manages automobiles.
+* **Org2 — Dealer:** Creates and manages dealer orders.
+* **Org3 — MVD:** Registers automobiles and assigns registration details.
+
 
 ## ✨ Features
 
